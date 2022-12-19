@@ -12,9 +12,10 @@ public class UserService {
     private UserRepository userRepository;
 
     public int addUser(UserDto userDto) {
-        int userId = 0;
-        userId = userRepository.saveUser(userDto);
-        return userId;
+        System.out.println("데이터베이스에 insert 전: " + userDto);
+        userRepository.saveUser(userDto);
+        System.out.println("데이터베이스에 insert 후: " + userDto);
+        return userDto.getUserId();
     }
 
     public UserDto getUser(int userId) {
