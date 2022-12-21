@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
-@RestController
+@RestController // controller 는 요청과 응답을 처리한다
 @RequestMapping("/api/option")
 public class OptionController {
 
