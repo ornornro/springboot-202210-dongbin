@@ -2,8 +2,13 @@ package com.study.springboot202210dongbin.service;
 
 import com.study.springboot202210dongbin.repository.UserRepository;
 import com.study.springboot202210dongbin.web.dto.UserDto;
+import com.study.springboot202210dongbin.web.exception.CustomDuplicateUsernameException;
+import com.study.springboot202210dongbin.web.exception.CustomTestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class UserService {
@@ -24,5 +29,13 @@ public class UserService {
         return userDto;
     }
 
+    public void duplicateUsername(String username) {
+        UserDto userDto = userRepository.findUserByUsername(username);
+        if(userDto != null) {
+            Map<String, String> errorMap = new HashMap<>();
+            errorMap.put("duplicate", "이미 존재하는 사용자이름 입니다.");
+            throw new CustomDuplicateUsernameException("Duplicate username!!!", errorMap);
+        }
+    }
 
 }
