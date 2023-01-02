@@ -18,11 +18,16 @@ public class ValidationAop {
     @Pointcut("execution(* com.study.springboot202210dongbin.web.controller.account.AccountApiController.*(..))")
     private void executionPointCut() {}
 
-    @Around("executionPointCut()") // 전과 후 둘 다 적용시켜라
+    @Pointcut("@annotation(com.study.springboot202210dongbin.aop.annotation.ValidAspect)")
+    private void annotationPointCut() {}
+
+    @Around("annotationPointCut()") // 전과 후 둘 다 적용시켜라
     public Object around(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
 
         Object[] args = proceedingJoinPoint.getArgs();
-
+        for(Object arg : args) {
+            System.out.println(arg);
+        }
         System.out.println("AOP 작동함!!");
 
         BeanPropertyBindingResult bindingResult = null;
